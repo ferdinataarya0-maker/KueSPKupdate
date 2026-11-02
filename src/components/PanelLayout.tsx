@@ -16,7 +16,8 @@ interface PanelLayoutProps {
 }
 
 export default function PanelLayout({ children, role, title, breadcrumbs }: PanelLayoutProps) {
-  const pathname = usePathname();
+  const rawPath = usePathname();
+  const pathname = (rawPath ?? '').replace(/\/$/, '') || '/';
   const router = useRouter();
   const groups = navFor(role);
   const [session, setSessionState] = useState<Session | null>(null);

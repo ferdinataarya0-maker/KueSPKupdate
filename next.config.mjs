@@ -1,7 +1,13 @@
 import { imageHosts } from './image-hosts.config.mjs';
 
+// Build untuk GitHub Pages: GITHUB_PAGES=true npm run build  (hasil statis di folder "out")
+const isPages = process.env.GITHUB_PAGES === 'true';
+const basePath = isPages ? '/KueSPKupdate' : '';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...(isPages && { output: 'export', basePath }),
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   productionBrowserSourceMaps: true,
   distDir: process.env.DIST_DIR || '.next',
   typescript: {
@@ -11,6 +17,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: isPages,
     remotePatterns: imageHosts,
     minimumCacheTTL: 60,
     qualities: [75, 85, 100],

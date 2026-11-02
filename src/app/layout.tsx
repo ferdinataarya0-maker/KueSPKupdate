@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: 'LineraDSS — Sistem Pendukung Keputusan Kue Balok Linera',
   description: 'Sistem pendukung keputusan pemilihan varian kue balok terbaik menggunakan metode SAW dan WASPAS pada Usaha Kue Balok Linera.',
   icons: {
-    icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
+    icon: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/favicon.ico`, type: 'image/x-icon' }],
   },
 };
 

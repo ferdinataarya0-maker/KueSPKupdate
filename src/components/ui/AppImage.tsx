@@ -22,6 +22,10 @@ interface AppImageProps {
     [key: string]: any;
 }
 
+// Tambahkan basePath (GitHub Pages) pada gambar lokal
+const withBase = (p: string) =>
+    typeof p === 'string' && p.startsWith('/') ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${p}` : p;
+
 const AppImage = memo(function AppImage({
     src,
     alt,
@@ -35,12 +39,12 @@ const AppImage = memo(function AppImage({
     fill = false,
     sizes,
     onClick,
-    fallbackSrc = '/assets/images/no_image.png',
+    fallbackSrc = withBase('/assets/images/no_image.png'),
     loading = 'lazy',
     unoptimized = false,
     ...props
 }: AppImageProps) {
-    const [imageSrc, setImageSrc] = useState(src);
+    const [imageSrc, setImageSrc] = useState(withBase(src));
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
